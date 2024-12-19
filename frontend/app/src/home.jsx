@@ -224,7 +224,7 @@ export default function Home() {
 
       <div className="buttons-container">
   <button className="button">Combinations</button>
-  <button className="button">Graph</button>
+  <button className="button" onClick={e=>window.location.href="./graph"}>Graph</button>
 </div>
 
     </>
