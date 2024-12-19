@@ -2,6 +2,9 @@ const express = require("express");
 
 const app = express();
 const PORT = process.env.PORT || 3111;
+const cors = require("cors");
+
+app.use(cors());
 
 const data = [
   { heavy_rains: 8, storms: 9, probability: 90 },
