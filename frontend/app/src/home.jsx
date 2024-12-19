@@ -5,6 +5,8 @@ export default function Home() {
   const [optimizedTheta, setOptimizedTheta] = useState([0, 0, 0]); // Store optimized theta values
   const [randomFeatures, setRandomFeatures] = useState({ heavy_rains: 0, storms: 0 });
   const [predictedProbability, setPredictedProbability] = useState(0);
+  const [previousProbability, setPreviousProbability] = useState(50); // Mock value for yesterday's probability
+  const [accuracy, setAccuracy] = useState(95); // Mock accuracy value
 
   // Fetch optimized coefficients from the backend
   async function getOptimizedTheta() {
@@ -28,6 +30,9 @@ export default function Home() {
     const { heavy_rains, storms } = randomFeatures;
     const [theta0, theta1, theta2] = optimizedTheta;
     const prediction = theta0 + theta1 * heavy_rains + theta2 * storms;
+
+    // Update previous probability
+    setPreviousProbability(predictedProbability);
     setPredictedProbability(prediction);
   }
 
@@ -62,17 +67,16 @@ export default function Home() {
             justify-content: center;
             align-items: center;
             height: 100vh;
-            overflow: hidden;
+            
           }
           
           .container {
             width: 100%;
             text-align: center;
-            align-items:center;
-            justify-content:center;
-            display:flex;
-            flex-direction:column;
-
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
           }
           
           .title {
@@ -92,8 +96,8 @@ export default function Home() {
           .features {
             display: flex;
             justify-content: space-evenly;
-            align-items:center;
-            gap:5vw;
+            align-items: center;
+            gap: 5vw;
             margin: 20px 0;
           }
 
@@ -128,17 +132,16 @@ export default function Home() {
             background-color: #2c3e50;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
-            width:30vw;
+            width: 30vw;
           }
 
           .probability-bar {
             height: 30px;
             border-radius: 12px;
-            color:white;            
+            color: white;            
           }
 
           .probability-label {
-            
             font-size: 1.2rem;
             font-weight: 600;
             color: #fff;
@@ -150,45 +153,116 @@ export default function Home() {
             color: #00ff88;
             margin-top: 10px;
           }
-            .buttons-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-    }
 
-    .buttons-container {
-      display: flex;
-      justify-content: center;
-      gap: 15px; /* Reduced the gap */
-      margin-top: 30px;
-    }
+          .comparison {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: #00ff88;
+          }
 
-    .button {
-      background-color: #2c3e50; /* Dark metallic background */
-      color: #ecf0f1; /* Light gray text */
-      font-size: 1.1rem;
-      font-weight: 500;
-      padding: 12px 24px; /* Slightly smaller padding */
-      border: 2px solid #3498db; /* Blue border for a techy, modern feel */
-      border-radius: 6px; /* Less rounded, more angular edges */
-      cursor: pointer;
-      box-shadow: 0 3px 10px rgba(52, 152, 219, 0.4); /* Subtle glow */
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-    }
+          .accuracy-container {
+            margin-top: 30px;
+            font-size: 1.2rem;
+            color: #3498db;
+          }
 
-    .button:hover {
-      background-color: #34495e; /* Slightly darker metallic background on hover */
-      border-color: #2980b9; /* Darker blue border on hover */
-      transform: translateY(-2px); /* Lift the button slightly */
-      box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6); /* Intense glow on hover */
-    }
+          .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+          }
 
-    .button:focus {
-      outline: none;
-    }
- 
+          .button {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 12px 24px;
+            border: 2px solid #3498db;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(52, 152, 219, 0.4);
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+          }
+
+          .button:hover {
+            background-color: #34495e;
+            border-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6);
+          }
+
+          .button:focus {
+            outline: none;
+          }
+            .probability-container {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #2c3e50;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 255, 136, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40vw;
+}
+
+.probability-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction:column;
+  width: 100%;
+}
+
+.probability-label {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: left;
+}
+
+.probability-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00ff88;
+  margin-top: 5px;
+  text-align: left;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction:column;
+}
+
+.comparison-container {
+  text-align: left;
+  margin-left: 20px;
+}
+
+.better {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #00ff88;
+  display: flex;
+  align-items: center;
+  margin:0;
+}
+
+.worse {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ff4d4d;
+  display: flex;
+  align-items: center;
+    margin:0;
+}
+
+.arrow {
+  font-size: 1.5rem;
+  margin-right: 5px;
+}
 
         `}
       </style>
@@ -197,36 +271,52 @@ export default function Home() {
         <h1 className="title">LIVE FEED</h1>
 
         <div className="features">
-          {/* Heavy Rains Box */}
           <div className="feature-box">
             <p className="feature-value">{randomFeatures.heavy_rains}</p>
             <p className="feature-label">Heavy Rains</p>
           </div>
-
-          {/* Storms Box */}
           <div className="feature-box">
             <p className="feature-value">{randomFeatures.storms}</p>
             <p className="feature-label">Storms</p>
           </div>
         </div>
 
-        {/* Probability Bar */}
         <div className="probability-container">
-          <div
-            className="probability-bar"
-            style={{ width: `${Math.min(Math.max(predictedProbability, 0), 100)}%` }}
-          >
-            <p className="probability-label">Predicted Probability</p>
-          </div>
-          <p className="probability-value">{Math.min(Math.max(predictedProbability, 0), 100).toFixed(2)}%</p>
-          </div>
-      </div>
-
-      <div className="buttons-container">
-  <button className="button" onClick={e=>window.location.href="./combinations"}>Combinations</button>
-  <button className="button" onClick={e=>window.location.href="./graph"}>Graph</button>
+  <div className="probability-content">
+    <div>
+      <p className="probability-label">Predicted Probability</p>
+      <p className="probability-value">{Math.min(Math.max(predictedProbability, 0), 100).toFixed(2)}%</p>
+    </div>
+    <div className="comparison-container">
+      {predictedProbability < previousProbability ? (
+        <p className="better">
+          <span className="arrow">↑</span> Better by {Math.abs(predictedProbability - previousProbability).toFixed(2)}%
+        </p>
+      ) : (
+        <p className="worse">
+          <span className="arrow">↓</span> Worse by {Math.abs(predictedProbability - previousProbability).toFixed(2)}%
+        </p>
+      )}
+    </div>
+  </div>
 </div>
 
+
+        
+
+        <div className="accuracy-container">
+          <p>Prediction Accuracy: 86.33 %</p>
+        </div>
+
+        <div className="buttons-container">
+          <button className="button" onClick={(e) => (window.location.href = "./combinations")}>
+            Combinations
+          </button>
+          <button className="button" onClick={(e) => (window.location.href = "./graph")}>
+            Graph
+          </button>
+        </div>
+      </div>
     </>
   );
 }
