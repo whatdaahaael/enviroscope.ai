@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ScatterPlot3D from './graph';
 import Home from './home'
+import Combination from './combinations';
 function App() {
   
 
@@ -13,6 +14,7 @@ function App() {
           <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/graph" element={<ScatterPlot3D />} />
+        <Route path="/combinations" element={<Combination />} />
         
       </Routes>
     </Router>
